@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_gradient_blue"
+    tools:context=".ui.profilesettings.ProfileSettingsActivity">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/layout_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:elevation="4dp"
+        app:cardCornerRadius="6dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:navigationIcon="@drawable/ic_back"
+            app:title="Pengaturan" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_margin="16dp"
+app:cardCornerRadius="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/layout_toolbar"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:elevation="4dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/layout_toolbar">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="16dp"
+                app:cardCornerRadius="100dp">
+
+                <ImageView
+                    android:id="@+id/iv_avatar"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_account"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                tools:text="John Doe"
+                android:textColor="@color/blue"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:id="@+id/tv_name"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                tools:text="johndoe@mail.com"
+                android:textColor="@color/gray"
+                android:textSize="18sp"
+                android:layout_marginTop="4dp"
+                android:textStyle="italic"
+                android:id="@+id/tv_email"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_edit_profile"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="16dp"
+                android:drawablePadding="20dp"
+                android:background="@drawable/background_btn_blue"
+                app:backgroundTint="@null"
+                app:rippleColor="@color/gray"
+                android:paddingHorizontal="30dp"
+                android:text="Update Profil"
+                android:drawableTint="@color/white"
+                android:textColor="@color/white" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_profile_setting"
+                android:drawableEnd="@drawable/ic_next_navigate"
+                android:drawablePadding="20dp"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:paddingHorizontal="30dp"
+                android:drawableTint="@android:color/holo_red_dark"
+                android:text="@string/log_out"
+                android:textAlignment="textStart"
+                android:textColor="@android:color/holo_red_dark" />
+
+            <!--        <View-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="1dp"-->
+            <!--            android:background="@android:color/darker_gray" />-->
+
+            <!--        <com.google.android.material.button.MaterialButton-->
+            <!--            android:id="@+id/btn_verify_document"-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:background="@drawable/btn_profile_setting"-->
+            <!--            android:drawableLeft="@drawable/ic_document"-->
+            <!--            android:drawablePadding="20dp"-->
+            <!--            android:foreground="?attr/selectableItemBackgroundBorderless"-->
+            <!--            android:paddingHorizontal="30dp"-->
+            <!--            android:text="Verify Document"-->
+            <!--            android:textAlignment="textStart"-->
+            <!--            android:textColor="@color/black" />-->
+
+            <!--        <View-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="1dp"-->
+            <!--            android:background="@android:color/darker_gray" />-->
+
+            <!--        <com.google.android.material.button.MaterialButton-->
+            <!--            android:id="@+id/btn_vehicle_list"-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:background="@drawable/btn_profile_setting"-->
+            <!--            android:drawableLeft="@drawable/ic_car"-->
+            <!--            android:drawablePadding="20dp"-->
+            <!--            android:foreground="?attr/selectableItemBackgroundBorderless"-->
+            <!--            android:paddingHorizontal="30dp"-->
+            <!--            android:text="Vehicle List"-->
+            <!--            android:textAlignment="textStart"-->
+            <!--            android:textColor="@color/black" />-->
+
+            <!--        <View-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="1dp"-->
+            <!--            android:background="@android:color/darker_gray" />-->
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

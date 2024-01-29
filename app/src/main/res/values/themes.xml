@@ -1,0 +1,24 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.TrafficSense" parent="Theme.Material3.Light.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+    <style name="Theme.TrafficSense.White" parent="Base.Theme.TrafficSense" >
+        <item name="android:statusBarColor">@color/veryLightBlue</item>
+    </style>
+
+    <style name="Theme.TrafficSense.Splash" parent="Base.Theme.TrafficSense" >
+        <item name="android:statusBarColor">@color/white</item>
+    </style>
+
+    <style name="Theme.TrafficSense.Auth" parent="Base.Theme.TrafficSense" >
+        <item name="android:statusBarColor">@color/darkBlue</item>
+    </style>
+
+
+    <style name="ShapeAppearanceOverlay.App.CornerSize20Percent" parent="">
+        <item name="cornerSize">20%</item>
+    </style>
+</resources>

@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">TrafficSense</string>
+    <string name="title_activity_bottom_main">BottomMainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_scan">Scan</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="log_out">Log Out</string>
+    <string name="carpooling">Carpooling</string>
+    <string name="dynamic_routing">Dynamic Routing</string>
+    <string name="polution_monitoring">Polution Monitoring</string>
+    <string name="title_activity_dynamic_routing">DynamicRoutingActivity</string>
+    <string name="title_activity_pick_location">PickLocationActivity</string>
+    <string name="start">Start</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="settings">Settings</string>
+    <string name="departure_location">Lokasi Keberangkatan</string>
+    <string name="pick_departure_location">Pilih Lokasi Keberangkatan</string>
+    <string name="destination_location">Lokasi Tujuan</string>
+    <string name="pick_destination_location">Pilih Lokasi Tujuan</string>
+    <string name="start_search_route">Mulai Cari Rute</string>
+    <string name="use_my_current_location">Gunakan Lokasi Anda saat ini</string>
+    <string name="atau">atau</string>
+    <string name="title_activity_google_maps">GoogleMapsActivity</string>
+    <string name="available_route">Rute Tersedia</string>
+    <string name="save_route">Simpan Rute</string>
+    <string name="polution_monitoring_text">Informasi real-time tentang tingkat polusi udara di berbagai lokasi, memberikan wawasan tentang kualitas udara.</string>
+    <string name="dynamic_routing_text">Rute pintar yang disesuaikan secara real-time untuk menghindari kemacetan dan memastikan perjalanan yang lebih cepat.</string>
+    <string name="carpooling_text">Platform untuk berbagi perjalanan, mengurangi jumlah kendaraan di jalan dan emisi gas rumah kaca.</string>
+    <string name="app_text">Solusi inovatif untuk mengatasi tantangan kemacetan, meningkatkan mobilitas, dan mengurangi dampak negatif terhadap lingkungan.</string>
+    <string name="next">Selanjutnya</string>
+
+    <string name="satu">Navigasi Cerdas dan Udara Sehat Bersama Traffic Sense</string>
+    <string name="dua">Monitoring Polusi untuk Masa Depan Lebih Hijau</string>
+    <string name="tiga">Bergerak Lancar, Aplikasi Cerdas, Polusi Termonitor!</string>
+
+    <string name="allCarpool">Semua Carpool</string>
+    <string name="myCarpool">Carpool Saya</string>
+    <string name="add_carpool">Tambah Carpool</string>
+    <string name="informasi_awal">Informasi Awal</string>
+</resources>
