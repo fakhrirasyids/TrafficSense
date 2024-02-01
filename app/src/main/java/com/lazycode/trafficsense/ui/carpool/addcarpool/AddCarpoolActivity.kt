@@ -112,14 +112,142 @@ class AddCarpoolActivity : AppCompatActivity(),
             switchCurrentLocation.setOnCheckedChangeListener { compoundButton, _ ->
                 if (compoundButton.isChecked) {
                     edDeparturePlace.isEnabled = false
+                    btnStartDeparture.isEnabled = false
                     getMyLastLocation()
                 } else {
                     edDeparturePlace.isEnabled = true
+                    btnStartDeparture.isEnabled = true
                     edDeparturePlace.setText("")
                     latDeparture = null
                     lonDeparture = null
                 }
             }
+
+            btnStartDeparture.setOnClickListener {
+                if (edDeparturePlace.text.toString().isEmpty()) {
+                    alertDialogMessage(
+                        this@AddCarpoolActivity,
+                        "Isi lokasi keberangkatan terlebih dahulu!"
+                    )
+                } else {
+                    dynamicRouteViewModel.searchPlaces(edDeparturePlace.text.toString())
+                        .observe(this@AddCarpoolActivity) { result ->
+                            when (result) {
+                                is Result.Loading -> {
+                                    loadingDialog.show()
+                                }
+
+                                is Result.Success -> {
+                                    loadingDialog.dismiss()
+
+                                    val placesItem = result.data.hits
+
+                                    if (placesItem!!.isEmpty()) {
+                                        alertDialogMessage(
+                                            this@AddCarpoolActivity,
+                                            "Hasil lokasi kosong!"
+                                        )
+                                    } else {
+                                        val placesName = arrayListOf<String>()
+                                        listDeparturePoints.clear()
+
+                                        for (places in placesItem!!) {
+                                            var tempPlace = "${places?.name}"
+                                            if (places?.city != null) {
+                                                tempPlace += ", ${places.city}"
+                                            }
+
+                                            if (places?.country != null) {
+                                                tempPlace += ", ${places.country}"
+                                            }
+                                            placesName.add(tempPlace)
+                                            listDeparturePoints.add(places?.point!!)
+                                        }
+
+                                        val distinctedPlaces = placesName.distinct()
+                                        val adapter = ArrayAdapter(
+                                            this@AddCarpoolActivity,
+                                            R.layout.custom_spinner_row,
+                                            distinctedPlaces
+                                        )
+                                        adapter.notifyDataSetChanged()
+                                        binding.edDeparturePlace.setAdapter(adapter)
+                                        binding.edDeparturePlace.showDropDown()
+                                    }
+                                }
+
+                                is Result.Error -> {
+                                    loadingDialog.dismiss()
+
+                                }
+                            }
+                        }
+                }
+            }
+
+            btnStartDestination.setOnClickListener {
+                if (edDestinationPlace.text.toString().isEmpty()) {
+                    alertDialogMessage(
+                        this@AddCarpoolActivity,
+                        "Isi lokasi keberangkatan terlebih dahulu!"
+                    )
+                } else {
+                    dynamicRouteViewModel.searchPlaces(edDestinationPlace.text.toString())
+                        .observe(this@AddCarpoolActivity) { result ->
+                            when (result) {
+                                is Result.Loading -> {
+                                    loadingDialog.show()
+                                }
+
+                                is Result.Success -> {
+                                    loadingDialog.dismiss()
+
+                                    val placesItem = result.data.hits
+
+                                    if (placesItem!!.isEmpty()) {
+                                        alertDialogMessage(
+                                            this@AddCarpoolActivity,
+                                            "Hasil lokasi kosong!"
+                                        )
+                                    } else {
+                                        val placesName = arrayListOf<String>()
+                                        listDestinationPoints.clear()
+
+                                        for (places in placesItem!!) {
+                                            var tempPlace = "${places?.name}"
+                                            if (places?.city != null) {
+                                                tempPlace += ", ${places.city}"
+                                            }
+
+
+                                            if (places?.country != null) {
+                                                tempPlace += ", ${places.country}"
+                                            }
+                                            placesName.add(tempPlace)
+                                            listDestinationPoints.add(places?.point!!)
+                                        }
+
+                                        val distinctedPlaces = placesName.distinct()
+                                        val adapter = ArrayAdapter(
+                                            this@AddCarpoolActivity,
+                                            R.layout.custom_spinner_row,
+                                            distinctedPlaces
+                                        )
+                                        adapter.notifyDataSetChanged()
+                                        binding.edDestinationPlace.setAdapter(adapter)
+                                        binding.edDestinationPlace.showDropDown()
+                                    }
+                                }
+
+                                is Result.Error -> {
+                                    loadingDialog.dismiss()
+
+                                }
+                            }
+                        }
+                }
+            }
+
 
             edDeparturePlace.onItemClickListener =
                 AdapterView.OnItemClickListener { _, _, idx, _ ->
@@ -330,59 +458,59 @@ class AddCarpoolActivity : AppCompatActivity(),
     }
 
     private fun observePlacesAutoComplete() {
-        dynamicRouteViewModel.apply {
-            searchPlacesResultDeparture.observe(this@AddCarpoolActivity) { placesItem ->
-                val placesName = arrayListOf<String>()
-                listDeparturePoints.clear()
-
-                for (places in placesItem!!) {
-                    var tempPlace = "${places?.name}"
-                    if (places?.city != null) {
-                        tempPlace += ", ${places.city}"
-                    }
-
-                    if (places?.country != null) {
-                        tempPlace += ", ${places.country}"
-                    }
-                    placesName.add(tempPlace)
-                    listDeparturePoints.add(places?.point!!)
-                }
-                val distinctedPlaces = placesName.distinct()
-                val adapter = ArrayAdapter(
-                    this@AddCarpoolActivity,
-                    R.layout.custom_spinner_row,
-                    distinctedPlaces
-                )
-                adapter.notifyDataSetChanged()
-                binding.edDeparturePlace.setAdapter(adapter)
-            }
-
-            searchPlacesResultDestination.observe(this@AddCarpoolActivity) { placesItem ->
-                val placesName = arrayListOf<String>()
-                listDestinationPoints.clear()
-
-                for (places in placesItem!!) {
-                    var tempPlace = "${places?.name}"
-                    if (places?.city != null) {
-                        tempPlace += ", ${places.city}"
-                    }
-
-                    if (places?.country != null) {
-                        tempPlace += ", ${places.country}"
-                    }
-                    placesName.add(tempPlace)
-                    listDestinationPoints.add(places?.point!!)
-                }
-                val distinctedPlaces = placesName.distinct()
-                val adapter = ArrayAdapter(
-                    this@AddCarpoolActivity,
-                    R.layout.custom_spinner_row,
-                    distinctedPlaces
-                )
-                adapter.notifyDataSetChanged()
-                binding.edDestinationPlace.setAdapter(adapter)
-            }
-        }
+//        dynamicRouteViewModel.apply {
+//            searchPlacesResultDeparture.observe(this@AddCarpoolActivity) { placesItem ->
+//                val placesName = arrayListOf<String>()
+//                listDeparturePoints.clear()
+//
+//                for (places in placesItem!!) {
+//                    var tempPlace = "${places?.name}"
+//                    if (places?.city != null) {
+//                        tempPlace += ", ${places.city}"
+//                    }
+//
+//                    if (places?.country != null) {
+//                        tempPlace += ", ${places.country}"
+//                    }
+//                    placesName.add(tempPlace)
+//                    listDeparturePoints.add(places?.point!!)
+//                }
+//                val distinctedPlaces = placesName.distinct()
+//                val adapter = ArrayAdapter(
+//                    this@AddCarpoolActivity,
+//                    R.layout.custom_spinner_row,
+//                    distinctedPlaces
+//                )
+//                adapter.notifyDataSetChanged()
+//                binding.edDeparturePlace.setAdapter(adapter)
+//            }
+//
+//            searchPlacesResultDestination.observe(this@AddCarpoolActivity) { placesItem ->
+//                val placesName = arrayListOf<String>()
+//                listDestinationPoints.clear()
+//
+//                for (places in placesItem!!) {
+//                    var tempPlace = "${places?.name}"
+//                    if (places?.city != null) {
+//                        tempPlace += ", ${places.city}"
+//                    }
+//
+//                    if (places?.country != null) {
+//                        tempPlace += ", ${places.country}"
+//                    }
+//                    placesName.add(tempPlace)
+//                    listDestinationPoints.add(places?.point!!)
+//                }
+//                val distinctedPlaces = placesName.distinct()
+//                val adapter = ArrayAdapter(
+//                    this@AddCarpoolActivity,
+//                    R.layout.custom_spinner_row,
+//                    distinctedPlaces
+//                )
+//                adapter.notifyDataSetChanged()
+//                binding.edDestinationPlace.setAdapter(adapter)
+//            }
+//        }
     }
 
     private fun getMyLastLocation() {
@@ -433,7 +561,7 @@ class AddCarpoolActivity : AppCompatActivity(),
                         latDeparture = null
                         lonDeparture = null
                         edDeparturePlaceLayout.error = null
-                        dynamicRouteViewModel.queryChannelDeparture.value = p0.toString()
+//                        dynamicRouteViewModel.queryChannelDeparture.value = p0.toString()
                     }
                 }
 
@@ -450,7 +578,7 @@ class AddCarpoolActivity : AppCompatActivity(),
                         latDestination = null
                         lonDestination = null
                         edDestinationPlaceLayout.error = null
-                        dynamicRouteViewModel.queryChannelDestination.value = p0.toString()
+//                        dynamicRouteViewModel.queryChannelDestination.value = p0.toString()
                     }
                 }
 

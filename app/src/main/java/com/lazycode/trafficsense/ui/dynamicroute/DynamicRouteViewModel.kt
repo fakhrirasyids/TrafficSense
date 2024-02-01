@@ -43,6 +43,8 @@ class DynamicRouteViewModel(
         }
         .asLiveData()
 
+    fun searchPlaces(query: String) = mapPlacesRepository.searchMapOnce(query).asLiveData()
+
     fun navigateDestination(
         latDeparture:Double?,
         lonDeparture:Double?,

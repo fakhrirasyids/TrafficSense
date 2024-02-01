@@ -69,26 +69,45 @@
                             android:textColor="@android:color/darker_gray"
                             android:textStyle="italic" />
 
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/ed_departure_place_layout"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="8dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
+                            android:orientation="horizontal">
 
-                            <AutoCompleteTextView
-                                android:id="@+id/ed_departure_place"
-                                style="@style/Widget.MaterialComponents.AutoCompleteTextView.OutlinedBox"
-                                android:layout_width="match_parent"
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/ed_departure_place_layout"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:hint="Pilih Lokasi Penjemputan"
-                                android:lines="1"
-                                android:maxLines="1"
-                                android:singleLine="true" />
+                                android:layout_weight="2"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
 
-                        </com.google.android.material.textfield.TextInputLayout>
+                                <AutoCompleteTextView
+                                    android:id="@+id/ed_departure_place"
+                                    style="@style/Widget.MaterialComponents.AutoCompleteTextView.OutlinedBox"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/pick_departure_location"
+                                    android:lines="1"
+                                    android:maxLines="1"
+                                    android:singleLine="true" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btn_start_departure"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="4dp"
+                                android:layout_weight="1"
+                                android:text="Cari"
+                                app:backgroundTint="@android:color/holo_green_dark"
+                                app:cornerRadius="8dp" />
+
+
+                        </LinearLayout>
 
                     </LinearLayout>
 
@@ -137,15 +156,15 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
+                        android:layout_marginTop="16dp"
+                        android:orientation="horizontal"
                         android:padding="8dp">
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/ed_destination_place_layout"
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="8dp"
-                            android:layout_marginTop="16dp"
+                            android:layout_weight="2"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
@@ -161,6 +180,18 @@
                                 android:singleLine="true" />
 
                         </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_start_destination"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="4dp"
+                            android:layout_weight="1"
+                            android:text="Cari"
+                            app:backgroundTint="@android:color/holo_green_dark"
+                            app:cornerRadius="8dp" />
+
 
                     </LinearLayout>
 

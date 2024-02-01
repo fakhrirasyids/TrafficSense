@@ -3,6 +3,7 @@ package com.lazycode.trafficsense.data.repo
 import androidx.lifecycle.liveData
 import com.lazycode.trafficsense.data.remote.services.AuthApiService
 import com.lazycode.trafficsense.data.remote.services.MainApiService
+import com.lazycode.trafficsense.utils.Constants
 import com.lazycode.trafficsense.utils.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
@@ -58,12 +59,13 @@ class AuthRepository(
     fun updateProfile(name: String, phoneNumber: String, image: File) = flow {
         emit(Result.Loading)
         try {
+            val reducedImage = Constants.reduceFileSize(image)
             val nameMultipart = name.toRequestBody("text/plain".toMediaType())
             val phoneNumberMultipart = phoneNumber.toRequestBody("text/plain".toMediaType())
             val imageMultipart = MultipartBody.Part.createFormData(
                 "profile_picture",
-                image.name,
-                image.asRequestBody("image/jpeg".toMediaTypeOrNull()),
+                reducedImage.name,
+                reducedImage.asRequestBody("image/jpeg".toMediaTypeOrNull()),
             )
             val updateProfileResponse = mainApiService.updateProfile(
                 nameMultipart, phoneNumberMultipart, imageMultipart

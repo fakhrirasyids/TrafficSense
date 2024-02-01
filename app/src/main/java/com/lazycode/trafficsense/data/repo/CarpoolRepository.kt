@@ -1,6 +1,7 @@
 package com.lazycode.trafficsense.data.repo
 
 import com.lazycode.trafficsense.data.remote.services.MainApiService
+import com.lazycode.trafficsense.utils.Constants
 import com.lazycode.trafficsense.utils.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
@@ -28,6 +29,7 @@ class CarpoolRepository(
     fun storeDocuments(ktpImage: File, simImage: File, stnkImage: File) = flow {
         emit(Result.Loading)
         try {
+
             val ktpImageMultipart = MultipartBody.Part.createFormData(
                 "documents[0][image]",
                 ktpImage.name,

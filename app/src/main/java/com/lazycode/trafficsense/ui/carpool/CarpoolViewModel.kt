@@ -8,6 +8,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.lazycode.trafficsense.data.models.CarpoolingItem
 import com.lazycode.trafficsense.data.repo.CarpoolRepository
+import com.lazycode.trafficsense.utils.Constants.reduceFileSize
 import com.lazycode.trafficsense.utils.Result
 import com.lazycode.trafficsense.utils.UserPreferences
 import kotlinx.coroutines.Dispatchers
@@ -33,9 +34,9 @@ class CarpoolViewModel(
 
     fun getDocuments() = carpoolRepository.getDocuments().asLiveData()
     fun storeDocuments() = carpoolRepository.storeDocuments(
-        ktpImage.value!!,
-        simImage.value!!,
-        stnkImage.value!!
+        reduceFileSize(ktpImage.value!!),
+        reduceFileSize(simImage.value!!),
+        reduceFileSize(stnkImage.value!!)
     ).asLiveData()
 
     init {

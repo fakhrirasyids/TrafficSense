@@ -183,7 +183,7 @@ class ViewLocationActivity : AppCompatActivity(), OnMapReadyCallback {
                     ContextCompat.getColor(this@ViewLocationActivity, android.R.color.holo_green_dark)
                 }
                 val overlayOptions = GroundOverlayOptions()
-                    .position(sensorLoc, 100f) // adjust width as needed
+                    .position(sensorLoc, 100f)
                     .image(BitmapDescriptorFactory.fromBitmap(getOverlayBitmap("CO : ${sensor.carbonMonoxide}",strokeColor)))
 
                 val circle = mMap.addCircle(

@@ -8,6 +8,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.lazycode.trafficsense.data.models.VehicleItem
 import com.lazycode.trafficsense.data.repo.CarpoolRepository
+import com.lazycode.trafficsense.utils.Constants
 import com.lazycode.trafficsense.utils.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -61,7 +62,9 @@ class VehicleViewModel(
     fun storeVehicles(
         name: String,
         capacity: String
-    ) = carpoolRepository.storeVehicle(name, capacity, vehicleImage.value!!).asLiveData()
+    ) = carpoolRepository.storeVehicle(name, capacity,
+        Constants.reduceFileSize(vehicleImage.value!!)
+    ).asLiveData()
 
     fun deleteVehicles(
         id: Int

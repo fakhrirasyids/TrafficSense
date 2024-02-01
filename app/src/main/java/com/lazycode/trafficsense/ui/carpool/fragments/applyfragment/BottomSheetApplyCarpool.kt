@@ -181,6 +181,132 @@ class BottomSheetApplyCarpool : BottomSheetDialogFragment() {
                 }
             }
 
+            btnStartDeparture.setOnClickListener {
+                if (edDeparturePlace.text.toString().isEmpty()) {
+                    alertDialogMessage(
+                        requireContext(),
+                        "Isi lokasi keberangkatan terlebih dahulu!"
+                    )
+                } else {
+                    dynamicRouteViewModel.searchPlaces(edDeparturePlace.text.toString())
+                        .observe(viewLifecycleOwner) { result ->
+                            when (result) {
+                                is Result.Loading -> {
+                                    loadingDialog.show()
+                                }
+
+                                is Result.Success -> {
+                                    loadingDialog.dismiss()
+
+                                    val placesItem = result.data.hits
+
+                                    if (placesItem!!.isEmpty()) {
+                                        alertDialogMessage(
+                                            requireContext(),
+                                            "Hasil lokasi kosong!"
+                                        )
+                                    } else {
+                                        val placesName = arrayListOf<String>()
+                                        listDeparturePoints.clear()
+
+                                        for (places in placesItem!!) {
+                                            var tempPlace = "${places?.name}"
+                                            if (places?.city != null) {
+                                                tempPlace += ", ${places.city}"
+                                            }
+
+                                            if (places?.country != null) {
+                                                tempPlace += ", ${places.country}"
+                                            }
+                                            placesName.add(tempPlace)
+                                            listDeparturePoints.add(places?.point!!)
+                                        }
+
+                                        val distinctedPlaces = placesName.distinct()
+                                        val adapter = ArrayAdapter(
+                                            requireContext(),
+                                            R.layout.custom_spinner_row,
+                                            distinctedPlaces
+                                        )
+                                        adapter.notifyDataSetChanged()
+                                        binding.edDeparturePlace.setAdapter(adapter)
+                                        binding.edDeparturePlace.showDropDown()
+                                    }
+                                }
+
+                                is Result.Error -> {
+                                    loadingDialog.dismiss()
+
+                                }
+                            }
+                        }
+                }
+            }
+
+            btnStartDestination.setOnClickListener {
+                if (edDestinationPlace.text.toString().isEmpty()) {
+                    alertDialogMessage(
+                        requireContext(),
+                        "Isi lokasi keberangkatan terlebih dahulu!"
+                    )
+                } else {
+                    dynamicRouteViewModel.searchPlaces(edDestinationPlace.text.toString())
+                        .observe(viewLifecycleOwner) { result ->
+                            when (result) {
+                                is Result.Loading -> {
+                                    loadingDialog.show()
+                                }
+
+                                is Result.Success -> {
+                                    loadingDialog.dismiss()
+
+                                    val placesItem = result.data.hits
+
+                                    if (placesItem!!.isEmpty()) {
+                                        alertDialogMessage(
+                                            requireContext(),
+                                            "Hasil lokasi kosong!"
+                                        )
+                                    } else {
+                                        val placesName = arrayListOf<String>()
+                                        listDestinationPoints.clear()
+
+                                        for (places in placesItem!!) {
+                                            var tempPlace = "${places?.name}"
+                                            if (places?.city != null) {
+                                                tempPlace += ", ${places.city}"
+                                            }
+
+
+                                            if (places?.country != null) {
+                                                tempPlace += ", ${places.country}"
+                                            }
+                                            placesName.add(tempPlace)
+                                            listDestinationPoints.add(places?.point!!)
+                                        }
+
+                                        val distinctedPlaces = placesName.distinct()
+                                        val adapter = ArrayAdapter(
+                                            requireContext(),
+                                            R.layout.custom_spinner_row,
+                                            distinctedPlaces
+                                        )
+                                        adapter.notifyDataSetChanged()
+                                        binding.edDestinationPlace.setAdapter(adapter)
+                                        binding.edDestinationPlace.showDropDown()
+                                    }
+                                }
+
+                                is Result.Error -> {
+                                    loadingDialog.dismiss()
+
+                                }
+                            }
+                        }
+                }
+            }
+
+
             edDeparturePlace.onItemClickListener =
                 AdapterView.OnItemClickListener { _, _, idx, _ ->
                     latDeparture = listDeparturePoints[idx].lat
@@ -278,7 +404,7 @@ class BottomSheetApplyCarpool : BottomSheetDialogFragment() {
                         latDeparture = null
                         lonDeparture = null
                         edDeparturePlaceLayout.error = null
-                        dynamicRouteViewModel.queryChannelDeparture.value = p0.toString()
+//                        dynamicRouteViewModel.queryChannelDeparture.value = p0.toString()
                     }
                 }
 
@@ -295,7 +421,7 @@ class BottomSheetApplyCarpool : BottomSheetDialogFragment() {
                         latDestination = null
                         lonDestination = null
                         edDestinationPlaceLayout.error = null
-                        dynamicRouteViewModel.queryChannelDestination.value = p0.toString()
+//                        dynamicRouteViewModel.queryChannelDestination.value = p0.toString()
                     }
                 }
 
@@ -306,59 +432,59 @@ class BottomSheetApplyCarpool : BottomSheetDialogFragment() {
     }
 
     private fun observePlacesAutoComplete() {
-        dynamicRouteViewModel.apply {
-            searchPlacesResultDeparture.observe(this@BottomSheetApplyCarpool) { placesItem ->
-                val placesName = arrayListOf<String>()
-                listDeparturePoints.clear()
-
-                for (places in placesItem!!) {
-                    var tempPlace = "${places?.name}"
-                    if (places?.city != null) {
-                        tempPlace += ", ${places.city}"
-                    }
-
-                    if (places?.country != null) {
-                        tempPlace += ", ${places.country}"
-                    }
-                    placesName.add(tempPlace)
-                    listDeparturePoints.add(places?.point!!)
-                }
-                val distinctedPlaces = placesName.distinct()
-                val adapter = ArrayAdapter(
-                    requireContext(),
-                    R.layout.custom_spinner_row,
-                    distinctedPlaces
-                )
-                adapter.notifyDataSetChanged()
-                binding.edDeparturePlace.setAdapter(adapter)
-            }
-
-            searchPlacesResultDestination.observe(this@BottomSheetApplyCarpool) { placesItem ->
-                val placesName = arrayListOf<String>()
-                listDestinationPoints.clear()
-
-                for (places in placesItem!!) {
-                    var tempPlace = "${places?.name}"
-                    if (places?.city != null) {
-                        tempPlace += ", ${places.city}"
-                    }
-
-                    if (places?.country != null) {
-                        tempPlace += ", ${places.country}"
-                    }
-                    placesName.add(tempPlace)
-                    listDestinationPoints.add(places?.point!!)
-                }
-                val distinctedPlaces = placesName.distinct()
-                val adapter = ArrayAdapter(
-                    requireContext(),
-                    R.layout.custom_spinner_row,
-                    distinctedPlaces
-                )
-                adapter.notifyDataSetChanged()
-                binding.edDestinationPlace.setAdapter(adapter)
-            }
-        }
+//        dynamicRouteViewModel.apply {
+//            searchPlacesResultDeparture.observe(this@BottomSheetApplyCarpool) { placesItem ->
+//                val placesName = arrayListOf<String>()
+//                listDeparturePoints.clear()
+//
+//                for (places in placesItem!!) {
+//                    var tempPlace = "${places?.name}"
+//                    if (places?.city != null) {
+//                        tempPlace += ", ${places.city}"
+//                    }
+//
+//                    if (places?.country != null) {
+//                        tempPlace += ", ${places.country}"
+//                    }
+//                    placesName.add(tempPlace)
+//                    listDeparturePoints.add(places?.point!!)
+//                }
+//                val distinctedPlaces = placesName.distinct()
+//                val adapter = ArrayAdapter(
+//                    requireContext(),
+//                    R.layout.custom_spinner_row,
+//                    distinctedPlaces
+//                )
+//                adapter.notifyDataSetChanged()
+//                binding.edDeparturePlace.setAdapter(adapter)
+//            }
+//
+//            searchPlacesResultDestination.observe(this@BottomSheetApplyCarpool) { placesItem ->
+//                val placesName = arrayListOf<String>()
+//                listDestinationPoints.clear()
+//
+//                for (places in placesItem!!) {
+//                    var tempPlace = "${places?.name}"
+//                    if (places?.city != null) {
+//                        tempPlace += ", ${places.city}"
+//                    }
+//
+//                    if (places?.country != null) {
+//                        tempPlace += ", ${places.country}"
+//                    }
+//                    placesName.add(tempPlace)
+//                    listDestinationPoints.add(places?.point!!)
+//                }
+//                val distinctedPlaces = placesName.distinct()
+//                val adapter = ArrayAdapter(
+//                    requireContext(),
+//                    R.layout.custom_spinner_row,
+//                    distinctedPlaces
+//                )
+//                adapter.notifyDataSetChanged()
+//                binding.edDestinationPlace.setAdapter(adapter)
+//            }
+//        }
     }
 
     private fun isValid(): Boolean {
